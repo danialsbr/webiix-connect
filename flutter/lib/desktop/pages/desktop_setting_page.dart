@@ -2624,7 +2624,8 @@ class _AboutState extends State<_About> {
                     style: linkStyle,
                   ).marginSymmetric(vertical: 4.0)),
               Container(
-                decoration: const BoxDecoration(color: Color(0xFF2563EB)),
+                // Webiix primary from webiix.co (--primary: 207 100% 40% / #0066CC)
+                decoration: const BoxDecoration(color: Color(0xFF0066CC)),
                 padding:
                     const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
                 child: SelectionArea(

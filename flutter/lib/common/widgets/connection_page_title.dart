@@ -5,34 +5,40 @@ import 'package:get/get.dart';
 import '../../common.dart';
 
 Widget getConnectionPageTitle(BuildContext context, bool isWeb) {
-  return Row(
+  final secondary = Theme.of(context).brightness == Brightness.dark
+      ? MyTheme.textSecondaryDark
+      : MyTheme.textSecondaryLight;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Expanded(
-          child: Row(
+      Row(
         children: [
-          AutoSizeText(
-            translate('Control Remote Desktop'),
-            maxLines: 1,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.merge(TextStyle(height: 1)),
-          ).marginOnly(right: 4),
+          Expanded(
+            child: AutoSizeText(
+              translate('Remote access'),
+              maxLines: 1,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.merge(const TextStyle(height: 1, fontSize: 24)),
+            ),
+          ),
           Tooltip(
             waitDuration: Duration(milliseconds: 300),
             message: translate(isWeb ? "web_id_input_tip" : "id_input_tip"),
             child: Icon(
               Icons.help_outline_outlined,
               size: 16,
-              color: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.color
-                  ?.withOpacity(0.5),
+              color: secondary,
             ),
           ),
         ],
-      )),
+      ),
+      const SizedBox(height: 4),
+      Text(
+        translate('Connect to another device or share this desktop'),
+        style: TextStyle(fontSize: 13, color: secondary, height: 1.3),
+      ),
     ],
-  );
+  ).marginOnly(right: 4);
 }

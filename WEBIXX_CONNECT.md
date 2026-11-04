@@ -4,12 +4,16 @@ Free custom build of [RustDesk](https://github.com/rustdesk/rustdesk), rebranded
 
 ## Branding
 
+Matched to [webiix.co](https://webiix.co/):
+
 | Item | Value |
 |------|--------|
 | App name | **Webiix Connect** |
 | Website | https://webiix.co/ |
 | License | Free |
-| Icon | Infinity (Webiix logo) |
+| Icon / logo | Lucide infinity + **Webiix Connect** + tagline *Web Infinite Innovation* |
+| Brand blue | `#0066CC` (site primary) |
+| Default theme | **Light / white** (Settings → Theme can switch to Dark or Follow System) |
 
 ## Default relay (baked into the client)
 

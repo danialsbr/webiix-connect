@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #ffffff; }
+    .icon {
+      width: 512px; height: 512px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wordmark {
+      width: 900px; height: 220px;
+      display: flex; align-items: center; gap: 28px;
+      padding: 24px 40px;
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: #0066CC;
+    }
+    .wordmark svg { width: 140px; height: 140px; flex-shrink: 0; }
+    .text { display: flex; flex-direction: column; line-height: 1.05; }
+    .brand { font-size: 72px; font-weight: 700; letter-spacing: -0.5px; }
+    .product { font-size: 48px; font-weight: 500; letter-spacing: 0.5px; margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <div id="icon" class="icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/>
+    </svg>
+  </div>
+  <div id="wordmark" class="wordmark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/>
+    </svg>
+    <div class="text">
+      <div class="brand">Webiix</div>
+      <div class="product">connect</div>
+    </div>
+  </div>
+</body>
+</html>

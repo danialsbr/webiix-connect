@@ -32,7 +32,7 @@ class DesktopHomePage extends StatefulWidget {
   State<DesktopHomePage> createState() => _DesktopHomePageState();
 }
 
-const borderColor = Color(0xFF2F65BA);
+const borderColor = MyTheme.accent;
 
 class _DesktopHomePageState extends State<DesktopHomePage>
     with AutomaticKeepAliveClientMixin, WidgetsBindingObserver {
@@ -129,8 +129,10 @@ class _DesktopHomePageState extends State<DesktopHomePage>
     return ChangeNotifierProvider.value(
       value: gFFI.serverModel,
       child: Container(
-        width: isIncomingOnly ? 280.0 : 200.0,
-        color: Theme.of(context).colorScheme.background,
+        width: isIncomingOnly ? 300.0 : 240.0,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? MyTheme.sidebarDark
+            : MyTheme.sidebarLight,
         child: Stack(
           children: [
             Column(
@@ -388,6 +390,9 @@ class _DesktopHomePageState extends State<DesktopHomePage>
 
   buildTip(BuildContext context) {
     final isOutgoingOnly = bind.isOutgoingOnly();
+    final secondary = Theme.of(context).brightness == Brightness.dark
+        ? MyTheme.textSecondaryDark
+        : MyTheme.textSecondaryLight;
     return Padding(
       padding:
           const EdgeInsets.only(left: 20.0, right: 16, top: 16.0, bottom: 5),
@@ -408,19 +413,25 @@ class _DesktopHomePageState extends State<DesktopHomePage>
             ],
           ),
           SizedBox(
-            height: 10.0,
+            height: 8.0,
           ),
           if (!isOutgoingOnly)
             Text(
               translate("desk_tip"),
               overflow: TextOverflow.clip,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: secondary, fontSize: 12),
             ),
           if (isOutgoingOnly)
             Text(
               translate("outgoing_only_desk_tip"),
               overflow: TextOverflow.clip,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: secondary, fontSize: 12),
             ),
         ],
       ),
@@ -601,62 +612,72 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       }
     }
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final warnBg = isDark ? const Color(0xFF2A2110) : const Color(0xFFFFF7E8);
+    final warnBorder =
+        isDark ? MyTheme.warningDark : const Color(0xFFE8C47A);
+    final warnText =
+        isDark ? MyTheme.textPrimaryDark : MyTheme.textPrimaryLight;
+    final warnSecondary =
+        isDark ? MyTheme.textSecondaryDark : MyTheme.textSecondaryLight;
+    final displayTitle = content == 'install_tip'
+        ? 'Install Webiix Connect to control elevated windows'
+        : title;
+    final displayContent = content == 'install_tip' ? '' : content;
+    final displayBtn = content == 'install_tip' && btnText == 'Install'
+        ? 'Install service'
+        : btnText;
     return Stack(
       children: [
         Container(
           margin: EdgeInsets.fromLTRB(
-              0, marginTop, 0, bind.isIncomingOnly() ? marginTop : 0),
+              12, marginTop, 12, bind.isIncomingOnly() ? marginTop : 12),
           child: Container(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Color.fromARGB(255, 226, 66, 188),
-                  Color.fromARGB(255, 244, 114, 124),
-                ],
-              )),
-              padding: EdgeInsets.all(20),
+                color: warnBg,
+                borderRadius: BorderRadius.circular(MyTheme.radiusCard),
+                border: Border.all(color: warnBorder, width: 1),
+              ),
+              padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: (title.isNotEmpty
+                  children: (displayTitle.isNotEmpty
                           ? <Widget>[
-                              Center(
-                                  child: Text(
-                                translate(title),
+                              Text(
+                                translate(displayTitle),
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ).marginOnly(bottom: 6)),
+                                    color: warnText,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13),
+                              ).marginOnly(bottom: 6),
                             ]
                           : <Widget>[]) +
                       <Widget>[
-                        if (content.isNotEmpty)
+                        if (displayContent.isNotEmpty)
                           Text(
-                            translate(content),
+                            translate(displayContent),
                             style: TextStyle(
-                                height: 1.5,
-                                color: Colors.white,
+                                height: 1.4,
+                                color: warnSecondary,
                                 fontWeight: FontWeight.normal,
-                                fontSize: 13),
-                          ).marginOnly(bottom: 20)
+                                fontSize: 12),
+                          ).marginOnly(bottom: 10)
                       ] +
-                      (btnText.isNotEmpty
+                      (displayBtn.isNotEmpty
                           ? <Widget>[
                               Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     FixedWidthButton(
-                                      width: 150,
-                                      padding: 8,
-                                      isOutline: true,
-                                      text: translate(btnText),
+                                      width: 140,
+                                      padding: 6,
+                                      isOutline: false,
+                                      text: translate(displayBtn),
                                       textColor: Colors.white,
-                                      borderColor: Colors.white,
-                                      textSize: 20,
-                                      radius: 10,
+                                      borderColor: MyTheme.accent,
+                                      textSize: 13,
+                                      radius: MyTheme.radiusControl,
                                       onTap: onPressed,
                                     )
                                   ])
@@ -664,8 +685,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                           : <Widget>[]) +
                       (help != null
                           ? <Widget>[
-                              Center(
-                                  child: InkWell(
+                              InkWell(
                                       onTap: () async =>
                                           await launchUrl(Uri.parse(link!)),
                                       child: Text(
@@ -673,21 +693,35 @@ class _DesktopHomePageState extends State<DesktopHomePage>
                                         style: TextStyle(
                                             decoration:
                                                 TextDecoration.underline,
-                                            color: Colors.white,
+                                            color: MyTheme.accent,
                                             fontSize: 12),
-                                      )).marginOnly(top: 6)),
+                                      )).marginOnly(top: 8),
                             ]
-                          : <Widget>[]))),
+                          : (content == 'install_tip'
+                              ? <Widget>[
+                                  InkWell(
+                                    onTap: () async => await launchUrl(Uri.parse(
+                                        'https://webiix.co/')),
+                                    child: Text(
+                                      translate('Learn why'),
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          color: MyTheme.accent,
+                                          fontSize: 12),
+                                    ),
+                                  ).marginOnly(top: 8),
+                                ]
+                              : <Widget>[]))),
         ),
         if (closeButton != null && closeButton == true)
           Positioned(
             top: 18,
-            right: 0,
+            right: 8,
             child: IconButton(
               icon: Icon(
                 Icons.close,
-                color: Colors.white,
-                size: 20,
+                color: warnSecondary,
+                size: 18,
               ),
               onPressed: closeCard,
             ),

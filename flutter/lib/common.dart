@@ -167,31 +167,31 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
   final Color? divider;
 
   static final light = ColorThemeExtension(
-    border: Color(0xFFCCCCCC),
-    border2: Color(0xFFBBBBBB),
-    border3: Colors.black26,
-    highlight: Color(0xFFE5E5E5),
-    drag_indicator: Colors.grey[800],
-    shadow: Colors.black,
-    errorBannerBg: Color(0xFFFDEEEB),
-    me: Colors.green,
+    border: Color(0xFFDCE4EF),
+    border2: Color(0xFFB6C5DC),
+    border3: Color(0xFFDCE4EF),
+    highlight: Color(0xFFEDF2F9),
+    drag_indicator: Color(0xFF52637B),
+    shadow: Color(0xFF15233B),
+    errorBannerBg: Color(0xFFFDE8EA),
+    me: Color(0xFF188B54),
     toastBg: Colors.black.withOpacity(0.6),
     toastText: Colors.white,
-    divider: Colors.black38,
+    divider: Color(0xFFDCE4EF),
   );
 
   static final dark = ColorThemeExtension(
-    border: Color(0xFF555555),
-    border2: Color(0xFFE5E5E5),
-    border3: Colors.white24,
-    highlight: Color(0xFF3F3F3F),
-    drag_indicator: Colors.grey,
-    shadow: Colors.grey,
-    errorBannerBg: Color(0xFF470F2D),
-    me: Colors.greenAccent,
+    border: Color(0xFF31425D),
+    border2: Color(0xFFB6C5DC),
+    border3: Color(0xFF31425D),
+    highlight: Color(0xFF1B2C49),
+    drag_indicator: Color(0xFFB6C5DC),
+    shadow: Color(0xFF080F20),
+    errorBannerBg: Color(0xFF3A1520),
+    me: Color(0xFF34C77B),
     toastBg: Colors.white.withOpacity(0.6),
     toastText: Colors.black,
-    divider: Colors.white38,
+    divider: Color(0xFF31425D),
   );
 
   @override
@@ -248,18 +248,37 @@ class ColorThemeExtension extends ThemeExtension<ColorThemeExtension> {
 class MyTheme {
   MyTheme._();
 
-  static const Color grayBg = Color(0xFFEFEFF2);
-  static const Color accent = Color(0xFF0071FF);
-  static const Color accent50 = Color(0x770071FF);
-  static const Color accent80 = Color(0xAA0071FF);
-  static const Color canvasColor = Color(0xFF212121);
-  static const Color border = Color(0xFFCCCCCC);
-  static const Color idColor = Color(0xFF00B6F0);
-  static const Color darkGray = Color.fromARGB(255, 148, 148, 148);
-  static const Color cmIdColor = Color(0xFF21790B);
-  static const Color dark = Colors.black87;
-  static const Color button = Color(0xFF2C8CFF);
-  static const Color hoverBorder = Color(0xFF999999);
+  // Webiix Connect redesign tokens (WEBIIX_CONNECT_REDESIGN.md)
+  static const Color grayBg = Color(0xFFF6F8FC); // light background
+  static const Color accent = Color(0xFF086BE8); // brand blue (light)
+  static const Color accentDark = Color(0xFF087CFF); // brand blue (dark)
+  static const Color accent50 = Color(0x77086BE8);
+  static const Color accent80 = Color(0xAA086BE8);
+  static const Color canvasColor = Color(0xFF080F20);
+  static const Color border = Color(0xFFDCE4EF);
+  static const Color borderDark = Color(0xFF31425D);
+  static const Color idColor = Color(0xFF086BE8);
+  static const Color darkGray = Color(0xFF52637B);
+  static const Color cmIdColor = Color(0xFF188B54);
+  static const Color dark = Color(0xFF15233B);
+  static const Color button = Color(0xFF086BE8);
+  static const Color hoverBorder = Color(0xFF31425D);
+  static const Color sidebarLight = Color(0xFFFFFFFF);
+  static const Color sidebarDark = Color(0xFF0D1930);
+  static const Color surfaceDark = Color(0xFF14233D);
+  static const Color raisedDark = Color(0xFF1B2C49);
+  static const Color textPrimaryLight = Color(0xFF15233B);
+  static const Color textPrimaryDark = Color(0xFFF7FAFF);
+  static const Color textSecondaryLight = Color(0xFF52637B);
+  static const Color textSecondaryDark = Color(0xFFB6C5DC);
+  static const Color success = Color(0xFF188B54);
+  static const Color successDark = Color(0xFF34C77B);
+  static const Color warning = Color(0xFFA86B09);
+  static const Color warningDark = Color(0xFFF6B64C);
+  static const Color error = Color(0xFFC83245);
+  static const Color errorDark = Color(0xFFF16A77);
+  static const double radiusControl = 10;
+  static const double radiusCard = 14;
 
   // ListTile
   static const ListTileThemeData listTileTheme = ListTileThemeData(
@@ -373,8 +392,8 @@ class MyTheme {
     // https://stackoverflow.com/questions/77537315/after-upgrading-to-flutter-3-16-the-app-bar-background-color-button-size-and
     useMaterial3: false,
     brightness: Brightness.light,
-    hoverColor: Color.fromARGB(255, 224, 224, 224),
-    scaffoldBackgroundColor: Colors.white,
+    hoverColor: Color(0xFFEDF2F9),
+    scaffoldBackgroundColor: grayBg,
     dialogBackgroundColor: Colors.white,
     appBarTheme: AppBarTheme(
       shadowColor: Colors.transparent,
@@ -382,36 +401,37 @@ class MyTheme {
     dialogTheme: DialogTheme(
       elevation: 15,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18.0),
+        borderRadius: BorderRadius.circular(radiusCard),
         side: BorderSide(
           width: 1,
-          color: grayBg,
+          color: border,
         ),
       ),
     ),
     scrollbarTheme: scrollbarTheme,
     inputDecorationTheme: isDesktop
         ? InputDecorationTheme(
-            fillColor: grayBg,
+            fillColor: Color(0xFFEDF2F9),
             filled: true,
             isDense: true,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(radiusControl),
             ),
           )
         : null,
     textTheme: const TextTheme(
-        titleLarge: TextStyle(fontSize: 19, color: Colors.black87),
-        titleSmall: TextStyle(fontSize: 14, color: Colors.black87),
-        bodySmall: TextStyle(fontSize: 12, color: Colors.black87, height: 1.25),
+        titleLarge: TextStyle(fontSize: 20, color: textPrimaryLight),
+        titleSmall: TextStyle(fontSize: 14, color: textPrimaryLight),
+        bodySmall:
+            TextStyle(fontSize: 12, color: textSecondaryLight, height: 1.25),
         bodyMedium:
-            TextStyle(fontSize: 14, color: Colors.black87, height: 1.25),
+            TextStyle(fontSize: 14, color: textPrimaryLight, height: 1.25),
         labelLarge: TextStyle(fontSize: 16.0, color: MyTheme.accent80)),
-    cardColor: grayBg,
-    hintColor: Color(0xFFAAAAAA),
+    cardColor: Colors.white,
+    hintColor: textSecondaryLight,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     tabBarTheme: const TabBarTheme(
-      labelColor: Colors.black87,
+      labelColor: textPrimaryLight,
     ),
     tooltipTheme: tooltipTheme(),
     splashColor: (isDesktop || isWebDesktop) ? Colors.transparent : null,
@@ -422,7 +442,7 @@ class MyTheme {
             style: TextButton.styleFrom(
               splashFactory: NoSplash.splashFactory,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+                borderRadius: BorderRadius.circular(radiusControl),
               ),
             ),
           )
@@ -430,17 +450,18 @@ class MyTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: MyTheme.accent,
+        foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(radiusControl),
         ),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        backgroundColor: grayBg,
-        foregroundColor: Colors.black87,
+        backgroundColor: Colors.white,
+        foregroundColor: textPrimaryLight,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(radiusControl),
         ),
       ),
     ),
@@ -452,15 +473,15 @@ class MyTheme {
         style:
             MenuStyle(backgroundColor: MaterialStatePropertyAll(Colors.white))),
     colorScheme: ColorScheme.light(
-        primary: Colors.blue, secondary: accent, background: grayBg),
+        primary: accent, secondary: accent, background: sidebarLight),
     popupMenuTheme: PopupMenuThemeData(
         color: Colors.white,
         shape: RoundedRectangleBorder(
           side: BorderSide(
               color: (isDesktop || isWebDesktop)
-                  ? Color(0xFFECECEC)
+                  ? border
                   : Colors.transparent),
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          borderRadius: BorderRadius.all(Radius.circular(radiusControl)),
         )),
   ).copyWith(
     extensions: <ThemeExtension<dynamic>>[
@@ -471,48 +492,50 @@ class MyTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: false,
     brightness: Brightness.dark,
-    hoverColor: Color.fromARGB(255, 45, 46, 53),
-    scaffoldBackgroundColor: Color(0xFF18191E),
-    dialogBackgroundColor: Color(0xFF18191E),
+    hoverColor: raisedDark,
+    scaffoldBackgroundColor: canvasColor,
+    dialogBackgroundColor: surfaceDark,
     appBarTheme: AppBarTheme(
       shadowColor: Colors.transparent,
     ),
     dialogTheme: DialogTheme(
       elevation: 15,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18.0),
+        borderRadius: BorderRadius.circular(radiusCard),
         side: BorderSide(
           width: 1,
-          color: Color(0xFF24252B),
+          color: borderDark,
         ),
       ),
     ),
     scrollbarTheme: scrollbarThemeDark,
     inputDecorationTheme: (isDesktop || isWebDesktop)
         ? InputDecorationTheme(
-            fillColor: Color(0xFF24252B),
+            fillColor: raisedDark,
             filled: true,
             isDense: true,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(radiusControl),
             ),
           )
         : null,
     textTheme: const TextTheme(
-      titleLarge: TextStyle(fontSize: 19),
-      titleSmall: TextStyle(fontSize: 14),
-      bodySmall: TextStyle(fontSize: 12, height: 1.25),
-      bodyMedium: TextStyle(fontSize: 14, height: 1.25),
+      titleLarge: TextStyle(fontSize: 20, color: textPrimaryDark),
+      titleSmall: TextStyle(fontSize: 14, color: textPrimaryDark),
+      bodySmall:
+          TextStyle(fontSize: 12, height: 1.25, color: textSecondaryDark),
+      bodyMedium:
+          TextStyle(fontSize: 14, height: 1.25, color: textPrimaryDark),
       labelLarge: TextStyle(
         fontSize: 16.0,
         fontWeight: FontWeight.bold,
         color: accent80,
       ),
     ),
-    cardColor: Color(0xFF24252B),
+    cardColor: surfaceDark,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     tabBarTheme: const TabBarTheme(
-      labelColor: Colors.white70,
+      labelColor: textPrimaryDark,
     ),
     tooltipTheme: tooltipTheme(),
     splashColor: (isDesktop || isWebDesktop) ? Colors.transparent : null,
@@ -522,33 +545,33 @@ class MyTheme {
         ? TextButtonThemeData(
             style: TextButton.styleFrom(
               splashFactory: NoSplash.splashFactory,
-              disabledForegroundColor: Colors.white70,
-              foregroundColor: Colors.white70,
+              disabledForegroundColor: textSecondaryDark,
+              foregroundColor: textPrimaryDark,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+                borderRadius: BorderRadius.circular(radiusControl),
               ),
             ),
           )
         : mobileTextButtonTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: MyTheme.accent,
+        backgroundColor: accentDark,
         foregroundColor: Colors.white,
-        disabledForegroundColor: Colors.white70,
-        disabledBackgroundColor: Colors.white10,
+        disabledForegroundColor: textSecondaryDark,
+        disabledBackgroundColor: raisedDark,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(radiusControl),
         ),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        backgroundColor: Color(0xFF24252B),
-        side: BorderSide(color: Colors.white12, width: 0.5),
-        disabledForegroundColor: Colors.white70,
-        foregroundColor: Colors.white70,
+        backgroundColor: surfaceDark,
+        side: BorderSide(color: borderDark, width: 0.5),
+        disabledForegroundColor: textSecondaryDark,
+        foregroundColor: textPrimaryDark,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(radiusControl),
         ),
       ),
     ),
@@ -558,16 +581,16 @@ class MyTheme {
     listTileTheme: listTileTheme,
     menuBarTheme: MenuBarThemeData(
         style: MenuStyle(
-            backgroundColor: MaterialStatePropertyAll(Color(0xFF121212)))),
+            backgroundColor: MaterialStatePropertyAll(sidebarDark))),
     colorScheme: ColorScheme.dark(
-      primary: Colors.blue,
-      secondary: accent,
-      background: Color(0xFF24252B),
+      primary: accentDark,
+      secondary: accentDark,
+      background: sidebarDark,
     ),
     popupMenuTheme: PopupMenuThemeData(
         shape: RoundedRectangleBorder(
-      side: BorderSide(color: Colors.white24),
-      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      side: BorderSide(color: borderDark),
+      borderRadius: BorderRadius.all(Radius.circular(radiusControl)),
     )),
   ).copyWith(
     extensions: <ThemeExtension<dynamic>>[
@@ -1321,7 +1344,7 @@ Color? _msgboxColor(String type) {
   if (type.contains("error") || type == "re-input-password") {
     return Color(0xFFE04F5F);
   }
-  return Color(0xFF2C8CFF);
+  return MyTheme.accent;
 }
 
 Widget msgboxIcon(String type) {
@@ -3794,82 +3817,78 @@ Widget loadPowered(BuildContext context) {
   ).marginOnly(top: 6);
 }
 
-const _kDefaultLogoAsset = 'assets/logo.png';
-const _kLightLogoAsset = 'assets/logo_light.png';
-const _kDarkLogoAsset = 'assets/logo_dark.png';
-
-List<String> _logoAssetCandidatesForBrightness(Brightness brightness) {
-  return brightness == Brightness.dark
-      ? [_kDarkLogoAsset, _kDefaultLogoAsset]
-      : [_kLightLogoAsset, _kDefaultLogoAsset];
-}
-
-Future<String?> _resolveLogoAsset(Brightness brightness) async {
-  for (final asset in _logoAssetCandidatesForBrightness(brightness)) {
-    try {
-      await rootBundle.load(asset);
-      return asset;
-    } on FlutterError {
-      continue;
-    }
-  }
-  return null;
-}
-
-class _Logo extends StatefulWidget {
+/// Webiix Connect header: Lucide infinity SVG + stacked "Webiix" / "connect".
+class _Logo extends StatelessWidget {
   const _Logo();
 
   @override
-  State<_Logo> createState() => _LogoState();
-}
-
-class _LogoState extends State<_Logo> {
-  final Map<Brightness, Future<String?>> _logoFutures = {};
-
-  Future<String?> _logoFutureFor(Brightness brightness) {
-    return _logoFutures.putIfAbsent(
-      brightness,
-      () => _resolveLogoAsset(brightness),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String?>(
-      future: _logoFutureFor(Theme.of(context).brightness),
-      builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-        final asset = snapshot.data;
-        if (asset != null) {
-          final image = Image.asset(
-            asset,
-            fit: BoxFit.contain,
-            errorBuilder: (ctx, error, stackTrace) {
-              return Container();
-            },
-          );
-          return Container(
-            constraints: BoxConstraints(maxWidth: 300, maxHeight: 60),
-            child: image,
-          ).marginOnly(left: 12, right: 12, top: 12);
-        }
-        return const Offstage();
-      },
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final brand =
+        isDark ? MyTheme.accentDark : MyTheme.accent;
+    final titleColor = isDark ? MyTheme.textPrimaryDark : brand;
+    final subtitleColor =
+        isDark ? MyTheme.textSecondaryDark : brand.withOpacity(0.85);
+
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 300, maxHeight: 64),
+      margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            'assets/icon.svg',
+            width: 32,
+            height: 32,
+            colorFilter: ColorFilter.mode(brand, BlendMode.srcIn),
+          ),
+          const SizedBox(width: 10),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Webiix',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  height: 1.05,
+                  color: titleColor,
+                ),
+              ),
+              Text(
+                'connect',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  height: 1.1,
+                  color: subtitleColor,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
 
-// max 300 x 60
+// max ~300 x 64
 Widget loadLogo() => const _Logo();
 
 Widget loadIcon(double size) {
-  return Image.asset('assets/icon.png',
+  return SvgPicture.asset(
+    'assets/icon.svg',
+    width: size,
+    height: size,
+    colorFilter: const ColorFilter.mode(MyTheme.accent, BlendMode.srcIn),
+    placeholderBuilder: (_) => Image.asset(
+      'assets/icon.png',
       width: size,
       height: size,
-      errorBuilder: (ctx, error, stackTrace) => SvgPicture.asset(
-            'assets/icon.svg',
-            width: size,
-            height: size,
-          ));
+    ),
+  );
 }
 
 var imcomingOnlyHomeSize = Size(280, 300);
@@ -4025,7 +4044,8 @@ bool get isCustomClient {
 }
 
 get defaultOptionLang => isCustomClient ? 'default' : '';
-get defaultOptionTheme => isCustomClient ? 'system' : '';
+// Webiix Connect defaults to white/light like webiix.co; users can still pick Dark or Follow System.
+get defaultOptionTheme => isCustomClient ? 'light' : '';
 get defaultOptionYes => isCustomClient ? 'Y' : '';
 get defaultOptionNo => isCustomClient ? 'N' : '';
 get defaultOptionWhitelist => isCustomClient ? ',' : '';

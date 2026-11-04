@@ -120,10 +120,16 @@ class _OnlineStatusWidgetState extends State<OnlineStatusWidget> {
                 borderRadius: BorderRadius.circular(4),
                 color: _svcStopped.value ||
                         stateGlobal.svcStatus.value == SvcStatus.connecting
-                    ? kColorWarn
+                    ? (Theme.of(context).brightness == Brightness.dark
+                        ? MyTheme.warningDark
+                        : MyTheme.warning)
                     : (stateGlobal.svcStatus.value == SvcStatus.ready
-                        ? Color.fromARGB(255, 50, 190, 166)
-                        : Color.fromARGB(255, 224, 79, 95)),
+                        ? (Theme.of(context).brightness == Brightness.dark
+                            ? MyTheme.successDark
+                            : MyTheme.success)
+                        : (Theme.of(context).brightness == Brightness.dark
+                            ? MyTheme.errorDark
+                            : MyTheme.error)),
               ),
             ).marginSymmetric(horizontal: em),
             Container(
