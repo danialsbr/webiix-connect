@@ -1,0 +1,14 @@
+﻿name: Webiix Connect Windows Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ webiix-connect ]
+
+jobs:
+  build-windows:
+    uses: ./.github/workflows/flutter-build.yml
+    secrets: inherit
+    with:
+      upload-artifact: true
+      upload-tag: "webiix-connect"
