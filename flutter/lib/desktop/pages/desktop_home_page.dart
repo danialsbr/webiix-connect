@@ -13,6 +13,7 @@ import 'package:flutter_hbb/desktop/pages/connection_page.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_tab_page.dart';
 import 'package:flutter_hbb/desktop/widgets/update_progress.dart';
+import 'package:flutter_hbb/desktop/widgets/webiix_app_shell.dart';
 import 'package:flutter_hbb/models/platform_model.dart';
 import 'package:flutter_hbb/models/server_model.dart';
 import 'package:flutter_hbb/models/state_model.dart';
@@ -26,7 +27,11 @@ import 'package:window_size/window_size.dart' as window_size;
 import '../widgets/button.dart';
 
 class DesktopHomePage extends StatefulWidget {
-  const DesktopHomePage({Key? key}) : super(key: key);
+  const DesktopHomePage({Key? key, this.webiixDevicesOnly = false})
+      : super(key: key);
+
+  /// When true, Webiix shell shows the devices list as the primary pane.
+  final bool webiixDevicesOnly;
 
   @override
   State<DesktopHomePage> createState() => _DesktopHomePageState();
@@ -58,6 +63,9 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (bind.isCustomClient()) {
+      return _buildBlock(child: _buildWebiixDashboard(context));
+    }
     final isIncomingOnly = bind.isIncomingOnly();
     return _buildBlock(
         child: Row(
@@ -68,6 +76,96 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         if (!isIncomingOnly) Expanded(child: buildRightPane(context)),
       ],
     ));
+  }
+
+  Widget _buildWebiixDashboard(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final title = isDark ? MyTheme.textPrimaryDark : MyTheme.textPrimaryLight;
+    final secondary =
+        isDark ? MyTheme.textSecondaryDark : MyTheme.textSecondaryLight;
+    final isOutgoingOnly = bind.isOutgoingOnly();
+    final isIncomingOnly = bind.isIncomingOnly();
+
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isDark
+              ? const [Color(0xFF080F20), Color(0xFF0D1930), Color(0xFF14233D)]
+              : const [Color(0xFFF6F8FC), Color(0xFFEDF2F9), Color(0xFFF6F8FC)],
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 22, 24, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.webiixDevicesOnly
+                      ? translate('Recent & Saved Devices')
+                      : translate('Remote access'),
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: title,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  translate('Connect to another device or share this desktop'),
+                  style: TextStyle(fontSize: 13, color: secondary),
+                ),
+              ],
+            ),
+          ),
+          if (!isOutgoingOnly)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
+              child: WebiixGlassCard(
+                padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+                      child: Text(
+                        translate('Your Desktop'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: title,
+                        ),
+                      ),
+                    ),
+                    buildIDBoard(context),
+                    buildPasswordBoard(context),
+                    FutureBuilder<Widget>(
+                      future: Future.value(Obx(
+                          () => buildHelpCards(stateGlobal.updateUrl.value))),
+                      builder: (_, data) => data.data ?? const Offstage(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(24, 4, 24, 16),
+              child: WebiixGlassCard(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                child: isIncomingOnly
+                    ? Center(child: OnlineStatusWidget())
+                    : const ConnectionPage(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildBlock({required Widget child}) {

@@ -4,6 +4,7 @@ import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_home_page.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_setting_page.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
+import 'package:flutter_hbb/desktop/widgets/webiix_app_shell.dart';
 import 'package:flutter_hbb/models/platform_model.dart';
 import 'package:flutter_hbb/models/state_model.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,10 @@ class DesktopTabPage extends StatefulWidget {
   static void onAddSetting(
       {SettingsTabKey initialPage = SettingsTabKey.general}) {
     try {
+      if (bind.isCustomClient() && Get.isRegistered<WebiixNavController>()) {
+        Get.find<WebiixNavController>().openSettings(tab: initialPage);
+        return;
+      }
       DesktopTabController tabController = Get.find<DesktopTabController>();
       tabController.add(TabInfo(
           key: kTabLabelSettingPage,
@@ -91,6 +96,18 @@ class _DesktopTabPageState extends State<DesktopTabPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (bind.isCustomClient()) {
+      final shell = const WebiixAppShell();
+      return isMacOS || kUseCompatibleUiMode
+          ? shell
+          : Obx(
+              () => DragToResizeArea(
+                resizeEdgeSize: stateGlobal.resizeEdgeSize.value,
+                enableResizeEdges: windowManagerEnableResizeEdges,
+                child: shell,
+              ),
+            );
+    }
     final tabWidget = Container(
         child: Scaffold(
             backgroundColor: Theme.of(context).colorScheme.background,

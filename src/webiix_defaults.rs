@@ -7,8 +7,8 @@ use hbb_common::config::{
 
 /// Apply Webiix Connect branding and default relay configuration.
 ///
-/// Sets the display name, seeds ID / Relay / Key defaults, and prefers a
-/// white/light UI (matching https://webiix.co/) while still allowing Dark.
+/// Sets the display name, seeds ID / Relay / Key defaults, and defaults to
+/// the dark glass redesign (Light / Follow System remain available in Settings).
 pub fn apply() {
     *config::APP_NAME.write().unwrap() = "Webiix Connect".to_owned();
 
@@ -22,10 +22,8 @@ pub fn apply() {
         defaults.insert("key".to_owned(), WEBIXX_KEY.to_owned());
     }
 
-    // Local UI defaults — light/white like the website; not overwritten so
-    // Settings → Theme (Light / Dark / Follow System) still works.
     {
         let mut local = DEFAULT_LOCAL_SETTINGS.write().unwrap();
-        local.insert("theme".to_owned(), "light".to_owned());
+        local.insert("theme".to_owned(), "dark".to_owned());
     }
 }

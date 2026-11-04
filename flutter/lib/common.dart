@@ -4045,7 +4045,7 @@ bool get isCustomClient {
 
 get defaultOptionLang => isCustomClient ? 'default' : '';
 // Webiix Connect defaults to white/light like webiix.co; users can still pick Dark or Follow System.
-get defaultOptionTheme => isCustomClient ? 'light' : '';
+get defaultOptionTheme => isCustomClient ? 'dark' : '';
 get defaultOptionYes => isCustomClient ? 'Y' : '';
 get defaultOptionNo => isCustomClient ? 'N' : '';
 get defaultOptionWhitelist => isCustomClient ? ',' : '';
